@@ -1,0 +1,10 @@
+#GET http://localhost:3001/api/persons/
+#GET http://localhost:3001/api/persons/3
+#delete http://localhost:3001/api/persons/2
+post http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "Uusi Keijo",
+    "number": "040 1234567"
+}
