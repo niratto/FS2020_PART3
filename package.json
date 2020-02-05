@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/niratto/FS2020_PART3#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
