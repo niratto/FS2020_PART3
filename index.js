@@ -1,9 +1,12 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
+//const util = require('util');
 app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
+app.use(morgan('tiny'))
 
 let persons = [
     {
@@ -22,6 +25,7 @@ let persons = [
         "id": 3
     }
 ]
+
 
 const generateId = () => {
     return Math.floor(Math.random() * 100000);
@@ -44,6 +48,7 @@ app.get('/info', (req, res) => {
 
 // SHOW ALL
 app.get('/api/persons', (req, res) => {
+    //console.log(util.inspect(req)); // Will give you more details than console.log
     res.json(persons)
 })
 
@@ -71,7 +76,7 @@ app.delete('/api/persons/:id', (request, response) => {
 // ADD NEW CONTACT
 app.post('/api/persons', (request, response) => {
     const body = request.body
-    console.log("BODY",body)
+    console.log("BODY", body)
     if (!body.name || !body.number) {
         return response.status(400).json({
             error: 'Name or number missing'
@@ -79,11 +84,11 @@ app.post('/api/persons', (request, response) => {
     }
 
     persons.map(function (person) {
-      if (person.name === body.name) {
-        return response.status(400).json({
-            error: 'Name already exists in the phonebook'
-        })
-      }
+        if (person.name === body.name) {
+            return response.status(400).json({
+                error: 'Name already exists in the phonebook'
+            })
+        }
     })
 
     const person = {
@@ -99,5 +104,5 @@ app.post('/api/persons', (request, response) => {
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+    console.log(`Server running on port ${PORT}`)
 })
